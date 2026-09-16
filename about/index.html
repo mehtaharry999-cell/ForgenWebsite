@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ZXForgen - About</title>
 
+    <style>
+        body {
+            margin: 0;
+            background: #050505;
+            color: white;
+            font-family: Arial;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -30px;
+            background: url("../static/background.png") center center / cover no-repeat;
+            z-index: -2;
+            transform: scale(1.04);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: -1;
+        }
+
+        nav {
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 0 8%;
+            border-bottom: 1px solid #222;
+            gap: 5px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            margin-top: 8px;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            text-shadow: 0 0 10px white;
+        }
+
+        .about-section {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 40px;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid #222;
+            border-radius: 12px;
+        }
+
+        .about-section h1 {
+            font-size: 55px;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+        }
+
+        .about-section p {
+            color: #aaa;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 20px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">ZXFORGEN</div>
+
+        <div class="nav-links">
+            <a href="../">HOME</a>
+
+            <a href="https://discord.gg/KdWp6VgqU5">
+                DISCORD
+            </a>
+
+            <a href="https://www.youtube.com/@ZXForgenGamer" target="_blank">
+                YOUTUBE
+            </a>
+
+            <a href="https://www.instagram.com/zxforgengamer/" target="_blank">
+                INSTAGRAM
+            </a>
+
+            <a href="./">
+                ABOUT
+            </a>
+        </div>
+    </nav>
+
+    <div class="about-section">
+
+        <h1>ABOUT ZXForgen</h1>
+
+        <p>
+            ZXForgen is a gaming community built around the things we enjoy most —
+            gaming, creating content, and meeting new people.
+        </p>
+
+        <p>
+            We started with a simple idea: create a place where gamers can enjoy
+            their favourite games, share their content, and connect with others
+            who have the same interests.
+        </p>
+
+        <p>
+            Our main focus is Minecraft, PvP, gaming content, and community projects.
+            Whether you're here to play, watch, create, or just hang out, there's
+            always something happening around ZXForgen.
+        </p>
+
+        <p>
+            We're not trying to make things complicated. It's just a community
+            where people can come together, enjoy gaming, and build something
+            of their own.
+        </p>
+
+        <p>
+            ZXForgen is still growing, and the journey has only started.
+            New content, projects, and community features will continue to be
+            added as we move forward.
+        </p>
+
+        <p>
+            Thanks for being a part of ZXForgen.
+        </p>
+
+    </div>
+
+    <footer>
+        © 2026 ZXForgen
+    </footer>
+
+</body>
+</html>
