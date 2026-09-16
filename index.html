@@ -226,10 +226,40 @@
     </p>
 
 </div>
+   
     <footer>
         © 2026 FORGEN
     </footer>
+<script>
+    const aboutLink = document.querySelector('a[href="#about"]');
+    const homeLink = document.querySelector('.nav-links a[href="#"]');
+    const hero = document.querySelector('.hero');
+    const aboutSection = document.querySelector('.about-section');
 
+    aboutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        hero.style.display = "none";
+        aboutSection.style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+
+    homeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        aboutSection.style.display = "none";
+        hero.style.display = "flex";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
     <!-- PARALLAX -->
     <script>
         let targetX = 0;
