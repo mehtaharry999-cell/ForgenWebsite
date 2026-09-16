@@ -173,7 +173,7 @@
     <a href="https://discord.gg/KdWp6VgqU5">DISCORD</a> 
     <a href="https://www.youtube.com/@ZXForgenGamer" target="_blank">YOUTUBE</a> 
     <a href="https://www.instagram.com/zxforgengamer/" target="_blank">INSTAGRAM</a> 
-    <a href="javascript:void(0)" id="aboutLink">ABOUT</a> 
+    <a href="/about">ABOUT</a>
     </div>
     </nav>
 
@@ -230,36 +230,7 @@
     <footer>
         © 2026 FORGEN
     </footer>
-<script>
-    const aboutLink = document.getElementById('aboutLink');
-    const homeLink = document.getElementById('homeLink');
-    const hero = document.querySelector('.hero');
-    const aboutSection = document.querySelector('.about-section');
 
-    aboutLink.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        hero.style.display = "none";
-        aboutSection.style.display = "block";
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    });
-
-    homeLink.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        aboutSection.style.display = "none";
-        hero.style.display = "flex";
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    });
-</script>
     <!-- PARALLAX -->
     <script>
         let targetX = 0;
