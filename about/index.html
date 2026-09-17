@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>ZXForgen - About</title>
 
     <style>
+
         body {
             margin: 0;
             background: #050505;
@@ -13,22 +15,36 @@
             overflow-x: hidden;
         }
 
+        /* BACKGROUND */
         body::before {
             content: "";
             position: fixed;
             inset: -30px;
             background: url("../static/background.png") center center / cover no-repeat;
             z-index: -2;
-            transform: scale(1.04);
+            pointer-events: none;
+
+            transform: translate3d(
+                var(--bg-x, 0px),
+                var(--bg-y, 0px),
+                0
+            ) scale(1.04);
+
+            transition: transform 0.15s ease-out;
         }
 
+        /* DARK OVERLAY */
         body::after {
             content: "";
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.45);
             z-index: -1;
+            pointer-events: none;
         }
+
+
+        /* NAVIGATION */
 
         nav {
             height: 70px;
@@ -66,11 +82,15 @@
             text-shadow: 0 0 10px white;
         }
 
+
+        /* ABOUT BOX */
+
         .about-section {
             max-width: 800px;
             margin: 80px auto;
             padding: 40px;
             text-align: left;
+
             background: rgba(0, 0, 0, 0.55);
             border: 1px solid #222;
             border-radius: 12px;
@@ -88,33 +108,169 @@
             line-height: 1.8;
         }
 
-        footer {
-            padding: 20px;
-            color: #666;
+
+        /* FOOTER */
+
+        .forgen-footer {
+            margin-top: 100px;
+            padding: 45px 8% 25px;
+
+            background: rgba(0, 0, 0, 0.75);
+            border-top: 1px solid #222;
+
             text-align: center;
         }
+
+
+        /* SOCIAL ICONS */
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 18px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #888;
+            text-decoration: none;
+
+            transition: 0.3s ease;
+        }
+
+        .social-icons svg {
+            width: 25px;
+            height: 25px;
+            fill: currentColor;
+        }
+
+        .social-icons a:hover {
+            color: #ff2020;
+
+            transform: translateY(-4px) scale(1.08);
+
+            filter: drop-shadow(
+                0 0 8px rgba(255, 32, 32, 0.8)
+            );
+        }
+
+        .footer-copy {
+            color: #555;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+
+        /* SPRINKLE CURSOR */
+
+        .sprinkle {
+            position: fixed;
+
+            width: 3px;
+            height: 3px;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: 99999;
+
+            animation: sprinkleFall 1s ease-out forwards;
+        }
+
+        @keyframes sprinkleFall {
+
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(var(--x), 80px) scale(0);
+            }
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .about-section {
+                margin: 50px 20px;
+                padding: 25px;
+            }
+
+            .about-section h1 {
+                font-size: 38px;
+            }
+
+            .about-section p {
+                font-size: 14px;
+            }
+
+            .forgen-footer {
+                padding: 35px 20px 25px;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <nav>
-        <div class="logo">ZXFORGEN</div>
 
-       <div class="nav-links">
-    <a href="../">HOME</a>
-    <a href="./">ABOUT</a>
-</div>
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="logo">
+            ZXF0RGEN
+        </div>
+
+        <div class="nav-links">
+
+            <a href="../">
+                HOME
+            </a>
+
+            <a href="./">
+                ABOUT
+            </a>
+
+        </div>
+
     </nav>
+
+
+
+    <!-- ABOUT -->
 
     <div class="about-section">
 
-        <h1>ABOUT ZXForgen</h1>
+        <h1>
+            ABOUT ZXForgen
+        </h1>
+
 
         <p>
             ZXForgen is a gaming community built around the things we enjoy most —
             gaming, creating content, and meeting new people.
         </p>
+
 
         <p>
             We started with a simple idea: create a place where gamers can enjoy
@@ -122,11 +278,13 @@
             who have the same interests.
         </p>
 
+
         <p>
             Our main focus is Minecraft, PvP, gaming content, and community projects.
             Whether you're here to play, watch, create, or just hang out, there's
             always something happening around ZXForgen.
         </p>
+
 
         <p>
             We're not trying to make things complicated. It's just a community
@@ -134,11 +292,13 @@
             of their own.
         </p>
 
+
         <p>
             ZXForgen is still growing, and the journey has only started.
             New content, projects, and community features will continue to be
             added as we move forward.
         </p>
+
 
         <p>
             Thanks for being a part of ZXForgen.
@@ -146,9 +306,237 @@
 
     </div>
 
-    <footer>
-        © 2026 ZXForgen
+
+
+    <!-- FOOTER -->
+
+    <footer class="forgen-footer">
+
+
+        <div class="social-icons">
+
+
+            <!-- YOUTUBE -->
+
+            <a
+                href="https://www.youtube.com/@ZXForgenGamer"
+                target="_blank"
+                aria-label="YouTube"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.8V8.2l6.5 3.8-6.5 3.8z"/>
+
+                </svg>
+
+            </a>
+
+
+
+            <!-- DISCORD -->
+
+            <a
+                href="https://discord.gg/KdWp6VgqU5"
+                target="_blank"
+                aria-label="Discord"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M19.5 4.4A16.8 16.8 0 0 0 15.3 3l-.5 1a15.6 15.6 0 0 0-5.6 0l-.5-1a16.8 16.8 0 0 0-4.2 1.4C1.8 8.6 1.1 12.7 1.4 16.8a16.9 16.9 0 0 0 5.2 2.6l1.3-1.8a10.6 10.6 0 0 1-1.9-.9l.5-.4c3.7 1.7 7.7 1.7 11.4 0l.5.4c-.6.3-1.3.6-1.9.9l1.3 1.8a16.9 16.9 0 0 0 5.2-2.6c.3-4.7-.8-8.8-3.5-12.4zM8.7 14.4c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2z"/>
+
+                </svg>
+
+            </a>
+
+
+
+            <!-- INSTAGRAM -->
+
+            <a
+                href="https://www.instagram.com/zxforgengamer/"
+                target="_blank"
+                aria-label="Instagram"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.5 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
+
+                </svg>
+
+            </a>
+
+
+        </div>
+
+
+        <div class="footer-copy">
+            © 2026 ZXForgen
+        </div>
+
+
     </footer>
+
+
+
+    <!-- BACKGROUND PARALLAX -->
+
+    <script>
+
+        let targetX = 0;
+        let targetY = 0;
+
+        let currentX = 0;
+        let currentY = 0;
+
+
+        document.addEventListener("mousemove", function(e) {
+
+            targetX =
+                (e.clientX / window.innerWidth - 0.5) * 2;
+
+            targetY =
+                (e.clientY / window.innerHeight - 0.5) * 2;
+
+        });
+
+
+        function animateBackground() {
+
+            currentX +=
+                (targetX - currentX) * 0.04;
+
+            currentY +=
+                (targetY - currentY) * 0.04;
+
+
+            document.body.style.setProperty(
+                "--bg-x",
+                currentX * 12 + "px"
+            );
+
+
+            document.body.style.setProperty(
+                "--bg-y",
+                currentY * 12 + "px"
+            );
+
+
+            requestAnimationFrame(
+                animateBackground
+            );
+
+        }
+
+
+        animateBackground();
+
+    </script>
+
+
+
+    <!-- SPRINKLE CURSOR -->
+
+    <script>
+
+        document.addEventListener(
+            "mousemove",
+            function(event) {
+
+                const amount =
+                    Math.floor(Math.random() * 3) + 2;
+
+
+                for (
+                    let i = 0;
+                    i < amount;
+                    i++
+                ) {
+
+                    const sparkle =
+                        document.createElement("div");
+
+
+                    sparkle.classList.add(
+                        "sprinkle"
+                    );
+
+
+                    if (Math.random() < 0.5) {
+
+                        sparkle.style.background =
+                            "white";
+
+                        sparkle.style.boxShadow =
+                            "0 0 8px white";
+
+                    } else {
+
+                        sparkle.style.background =
+                            "#d8b4fe";
+
+                        sparkle.style.boxShadow =
+                            "0 0 8px #c084fc";
+
+                    }
+
+
+                    sparkle.style.left =
+                        event.clientX +
+                        (Math.random() * 14 - 7) +
+                        "px";
+
+
+                    sparkle.style.top =
+                        event.clientY +
+                        (Math.random() * 8 - 4) +
+                        "px";
+
+
+                    sparkle.style.setProperty(
+                        "--x",
+                        (Math.random() * 50 - 25) +
+                        "px"
+                    );
+
+
+                    const size =
+                        Math.random() * 3 + 2;
+
+
+                    sparkle.style.width =
+                        size + "px";
+
+                    sparkle.style.height =
+                        size + "px";
+
+
+                    sparkle.style.animationDuration =
+                        (Math.random() * 0.6 + 0.7) +
+                        "s";
+
+
+                    document.body.appendChild(
+                        sparkle
+                    );
+
+
+                    setTimeout(
+                        function() {
+                            sparkle.remove();
+                        },
+                        1400
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
 
 </body>
 </html>
