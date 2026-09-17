@@ -1,5 +1,152 @@
 <!DOCTYPE html>
 <html>
+<style>
+/* ================================
+   FORGEN CUSTOM GAMING CURSOR
+   ================================ */
+
+html,
+body {
+    cursor: none !important;
+}
+
+/* Main cursor */
+.forgen-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 18px;
+    height: 24px;
+
+    pointer-events: none;
+    z-index: 999999999;
+
+    transform: translate(-2px, -2px);
+
+    /* Arrow shape */
+    clip-path: polygon(
+        0 0,
+        0 100%,
+        32% 72%,
+        48% 100%,
+        60% 94%,
+        44% 66%,
+        88% 66%
+    );
+
+    background: linear-gradient(
+        145deg,
+        #ff9a9a 0%,
+        #ff5c7a 38%,
+        #b66cff 72%,
+        #8f5cff 100%
+    );
+
+    filter:
+        drop-shadow(0 0 3px rgba(255, 100, 130, 0.9))
+        drop-shadow(0 0 7px rgba(160, 90, 255, 0.75));
+
+    transition:
+        transform 0.12s ease,
+        filter 0.12s ease;
+}
+
+/* Dark inner arrow for sharper gaming look */
+.forgen-cursor::after {
+    content: "";
+    position: absolute;
+
+    top: 3px;
+    left: 3px;
+
+    width: 11px;
+    height: 16px;
+
+    clip-path: polygon(
+        0 0,
+        0 100%,
+        32% 68%,
+        48% 100%,
+        55% 94%,
+        40% 62%,
+        80% 62%
+    );
+
+    background: #090909;
+}
+
+/* Hover effect */
+.forgen-cursor.hover {
+    transform: translate(-2px, -2px) scale(1.15);
+
+    filter:
+        drop-shadow(0 0 5px rgba(255, 100, 130, 1))
+        drop-shadow(0 0 12px rgba(170, 90, 255, 1));
+}
+
+/* Normal cursor on mobile/touch */
+@media (hover: none), (pointer: coarse) {
+    html,
+    body {
+        cursor: auto !important;
+    }
+
+    .forgen-cursor {
+        display: none;
+    }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* Create cursor */
+    const cursor = document.createElement("div");
+    cursor.className = "forgen-cursor";
+    document.body.appendChild(cursor);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    let cursorX = mouseX;
+    let cursorY = mouseY;
+
+    /* Mouse movement */
+    document.addEventListener("mousemove", function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    /* Smooth movement */
+    function animateCursor() {
+
+        cursorX += (mouseX - cursorX) * 0.35;
+        cursorY += (mouseY - cursorY) * 0.35;
+
+        cursor.style.left = cursorX + "px";
+        cursor.style.top = cursorY + "px";
+
+        requestAnimationFrame(animateCursor);
+    }
+
+    animateCursor();
+
+    /* Hover effect */
+    document.querySelectorAll("a, button").forEach(function (element) {
+
+        element.addEventListener("mouseenter", function () {
+            cursor.classList.add("hover");
+        });
+
+        element.addEventListener("mouseleave", function () {
+            cursor.classList.remove("hover");
+        });
+
+    });
+
+});
+</script>
 <head>
     <title>FORGEN</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
