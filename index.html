@@ -111,10 +111,49 @@
             box-shadow: 0 0 25px white;
         }
 
-        footer {
-            padding: 20px;
-            color: #666;
-        }
+        .forgen-footer {
+    padding: 35px 20px 25px;
+    text-align: center;
+    color: #666;
+    border-top: 1px solid #222;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 18px;
+}
+
+.social-icons a {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #aaa;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.social-icons svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.social-icons a:hover {
+    color: #ff2020;
+    transform: translateY(-4px) scale(1.08);
+    filter: drop-shadow(0 0 8px rgba(255, 32, 32, 0.8));
+}
+
+.footer-copy {
+    font-size: 12px;
+    color: #666;
+}
 .about-section {
     display: none;
     max-width: 800px;
