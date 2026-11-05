@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | FORGEN</title>
+    <title>Sign Up | ZXForgen</title>
 
     <style>
         * {
@@ -20,46 +20,74 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .signup-box {
-            width: 90%;
-            max-width: 400px;
-            padding: 35px;
+            width: 100%;
+            max-width: 420px;
+            padding: 38px 35px;
             background: #101010;
             border: 1px solid #a20d35;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #a20d3525;
+        }
+
+        .logo {
             text-align: center;
-            box-shadow: 0 0 25px #a20d3533;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 35px;
         }
 
         h1 {
-            letter-spacing: 5px;
-            margin-bottom: 10px;
+            text-align: center;
+            font-size: 32px;
+            margin: 0 0 8px;
         }
 
-        p {
+        .subtitle {
+            text-align: center;
             color: #aaa;
+            margin-bottom: 28px;
+        }
+
+        .field-label {
+            display: block;
+            margin: 16px 0 9px;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         input {
             width: 100%;
-            padding: 14px;
-            margin-top: 15px;
+            padding: 15px;
             background: #080808;
             color: white;
             border: 1px solid #444;
-            border-radius: 5px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #a20d35;
+        }
+
+        input::placeholder {
+            color: #777;
         }
 
         button {
             width: 100%;
-            padding: 14px;
-            margin-top: 20px;
+            padding: 15px;
+            margin-top: 22px;
+            border: none;
+            border-radius: 6px;
             background: #a20d35;
             color: white;
-            border: none;
-            border-radius: 5px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -68,14 +96,75 @@
             background: #d41448;
         }
 
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin: 28px 0 20px;
+            color: #999;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            background: #333;
+            flex: 1;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            background: #181818;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .social-button:hover {
+            background: #222;
+            border-color: #a20d35;
+        }
+
+        .social-button img {
+            width: 19px;
+            height: 19px;
+            object-fit: contain;
+        }
+
+        .login-text {
+            margin-top: 28px;
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+        }
+
         a {
             color: #ff456e;
             text-decoration: none;
         }
 
         #message {
+            text-align: center;
             font-size: 13px;
             margin-top: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .signup-box {
+                padding: 30px 22px;
+            }
         }
     </style>
 </head>
@@ -83,24 +172,81 @@
 <body>
 
 <div class="signup-box">
-    <h1>FORGEN</h1>
-    <p>Create your account</p>
+
+    <div class="logo">ZXFORGEN</div>
+
+    <h1>Welcome</h1>
+    <p class="subtitle">Forgen Club</p>
 
     <form id="signupForm">
-        <input type="text" id="username" placeholder="Username" required>
 
-        <input type="email" id="email" placeholder="Email address" required>
+        <label class="field-label" for="username">Username</label>
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+            required
+        >
 
-        <input type="password" id="password" placeholder="Password (minimum 8 characters)" minlength="8" required>
+        <label class="field-label" for="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your Gmail address"
+            required
+        >
 
-        <button type="submit" id="signupButton">CREATE ACCOUNT</button>
+        <label class="field-label" for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            minlength="8"
+            required
+        >
+
+        <label class="field-label" for="confirmPassword">
+            Confirm Password
+        </label>
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm your password"
+            minlength="8"
+            required
+        >
+
+        <button type="submit" id="signupButton">
+            Create Account
+        </button>
+
     </form>
 
     <p id="message"></p>
 
-    <p>Already have an account? <a href="/login/">Log In</a></p>
+    <div class="divider">OR CONTINUE WITH</div>
 
-    <a href="/">Back to Home</a>
+    <a class="social-button" href="#" id="googleSignup">
+        <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+        >
+        Continue with Google
+    </a>
+
+    <a class="social-button" href="#" id="discordSignup">
+        <img
+            src="https://cdn.jsdelivr.net/gh/gauravghongde/social-icons@master/SVG/Color/Discord.svg"
+            alt="Discord"
+        >
+        Continue with Discord
+    </a>
+
+    <p class="login-text">
+        Already have an account?
+        <a href="/login/">Sign In</a>
+    </p>
+
 </div>
 
 <script>
@@ -110,6 +256,16 @@ const button = document.getElementById("signupButton");
 
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+        message.textContent = "Passwords do not match.";
+        return;
+    }
 
     button.disabled = true;
     button.textContent = "CREATING ACCOUNT...";
@@ -124,23 +280,24 @@ form.addEventListener("submit", async function(event) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    username: document.getElementById("username").value,
-                    email: document.getElementById("email").value,
-                    password: document.getElementById("password").value
+                    username: username,
+                    email: email,
+                    password: password
                 })
             }
         );
 
         const data = await response.json();
 
-        message.textContent = data.success
-            ? "Account created! Redirecting to login..."
-            : data.error;
-
         if (data.success) {
-            setTimeout(() => {
+            message.textContent = "Account created! Redirecting to login...";
+
+            setTimeout(function() {
                 window.location.href = "/login/";
             }, 1500);
+
+        } else {
+            message.textContent = data.error || "Signup failed.";
         }
 
     } catch (error) {
@@ -148,7 +305,18 @@ form.addEventListener("submit", async function(event) {
     }
 
     button.disabled = false;
-    button.textContent = "CREATE ACCOUNT";
+    button.textContent = "Create Account";
+});
+
+// Social login will be connected after OAuth setup.
+document.getElementById("googleSignup").addEventListener("click", function(event) {
+    event.preventDefault();
+    message.textContent = "Google signup setup is coming next.";
+});
+
+document.getElementById("discordSignup").addEventListener("click", function(event) {
+    event.preventDefault();
+    message.textContent = "Discord signup setup is coming next.";
 });
 </script>
 
