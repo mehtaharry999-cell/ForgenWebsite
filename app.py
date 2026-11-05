@@ -259,3 +259,164 @@ document.addEventListener("mousemove", function(event) {
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
+# ==============================
+# ZXForgen Signup / Login System
+# ==============================
+
+import sqlite3
+import os
+from flask import request, redirect, session, render_template_string
+from werkzeug.security import generate_password_hash, check_password_hash
+
+# Session security
+app.secret_key = os.environ.get("SECRET_KEY", "zxforgen-change-this-secret-key")
+
+# Database
+DATABASE = os.path.join(app.root_path, "users.db")
+
+
+def init_user_database():
+    with sqlite3.connect(DATABASE) as conn:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL,
+                email TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL
+            )
+        """)
+
+
+init_user_database()
+
+
+AUTH_STYLE = """
+<style>
+body {
+    margin: 0;
+    background: #050505;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.auth-box {
+    width: 340px;
+    padding: 35px;
+    background: #10080d;
+    border: 1px solid #a20d35;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px #a20d3533;
+}
+h1 { letter-spacing: 4px; }
+input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px;
+    margin: 9px 0;
+    background: #080808;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 5px;
+}
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    background: #a20d35;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+a { color: #ff456e; }
+.message { color: #ff6688; }
+</style>
+"""
+
+
+@app.route("/signup/", methods=["GET", "POST"])
+def signup():
+    message = ""
+
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+
+        if not username or not email or len(password) < 8:
+            message = "Fill all fields. Password must be at least 8 characters."
+        else:
+            try:
+                with sqlite3.connect(DATABASE) as conn:
+                    conn.execute(
+                        "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+                        (username, email, generate_password_hash(password))
+                    )
+                return redirect("/login/")
+            except sqlite3.IntegrityError:
+                message = "This email is already registered."
+
+    return render_template_string("""
+    """ + AUTH_STYLE + """
+    <div class="auth-box">
+        <h1>SIGN UP</h1>
+        <p class="message">{{ message }}</p>
+        <form method="POST">
+            <input name="username" placeholder="Username" required>
+            <input name="email" type="email" placeholder="Email" required>
+            <input name="password" type="password" placeholder="Password (8+ characters)" required minlength="8">
+            <button type="submit">CREATE ACCOUNT</button>
+        </form>
+        <p>Already have an account? <a href="/login/">Log In</a></p>
+        <a href="/">Back to Home</a>
+    </div>
+    """, message=message)
+
+
+@app.route("/login/", methods=["GET", "POST"])
+def login():
+    message = ""
+
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+
+        with sqlite3.connect(DATABASE) as conn:
+            user = conn.execute(
+                "SELECT id, username, password FROM users WHERE email = ?",
+                (email,)
+            ).fetchone()
+
+        if user and check_password_hash(user[2], password):
+            session["user_id"] = user[0]
+            session["username"] = user[1]
+            return redirect("/")
+        else:
+            message = "Incorrect email or password."
+
+    return render_template_string("""
+    """ + AUTH_STYLE + """
+    <div class="auth-box">
+        <h1>LOG IN</h1>
+        <p class="message">{{ message }}</p>
+        <form method="POST">
+            <input name="email" type="email" placeholder="Email" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <button type="submit">LOG IN</button>
+        </form>
+        <p>New here? <a href="/signup/">Create Account</a></p>
+        <a href="/">Back to Home</a>
+    </div>
+    """, message=message)
+
+
+@app.route("/logout/")
+def logout():
+    session.clear()
+    return redirect("/")
