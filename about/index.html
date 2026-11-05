@@ -3,6 +3,7 @@
 
 <head>
     <title>ZXForgen - About</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
 
@@ -46,16 +47,17 @@
 
         /* NAVIGATION */
 
-        nav {
-            height: 70px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 0 8%;
-            border-bottom: 1px solid #222;
-            gap: 5px;
-        }
+       nav {
+    min-height: 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 8%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
         .logo {
             font-size: 28px;
@@ -85,34 +87,37 @@
 
         /* ABOUT BOX */
 
-        .about-section {
-            max-width: 800px;
-            margin: 80px auto;
-            padding: 40px;
-            text-align: left;
-
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid #222;
-            border-radius: 12px;
-        }
+       .about-section {
+    width: calc(100% - 40px);
+    max-width: 800px;
+    box-sizing: border-box;
+    margin: 80px auto;
+    padding: 40px;
+    text-align: left;
+    background: rgba(0,0,0,0.65);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+}
 
         .about-section h1 {
-            font-size: 55px;
-            letter-spacing: 5px;
-            margin-bottom: 25px;
-        }
+    font-size: clamp(28px, 6vw, 55px);
+    letter-spacing: 5px;
+    margin-bottom: 25px;
+    overflow-wrap: break-word;
+}
 
         .about-section p {
-            color: #aaa;
-            font-size: 16px;
-            line-height: 1.8;
-        }
+    color: #aaa;
+    font-size: 16px;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+}
 
 
         /* FOOTER */
 
         .forgen-footer {
-            margin-top: 100px;
+            margin-top: 50px;
             padding: 45px 8% 25px;
 
             background: rgba(0, 0, 0, 0.75);
@@ -206,25 +211,52 @@
 
         /* MOBILE */
 
-        @media (max-width: 700px) {
+       @media (max-width: 700px) {
+    nav {
+        padding: 12px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-            .about-section {
-                margin: 50px 20px;
-                padding: 25px;
-            }
+    .logo {
+        font-size: 23px;
+    }
 
-            .about-section h1 {
-                font-size: 38px;
-            }
+    .nav-links {
+        gap: 18px;
+        margin-top: 5px;
+    }
 
-            .about-section p {
-                font-size: 14px;
-            }
+    .about-section {
+        width: calc(100% - 30px);
+        margin: 35px auto;
+        padding: 22px;
+    }
 
-            .forgen-footer {
-                padding: 35px 20px 25px;
-            }
-        }
+    .about-section h1 {
+        font-size: 30px;
+        letter-spacing: 3px;
+    }
+
+    .about-section p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .forgen-footer {
+        margin-top: 50px;
+        padding: 30px 20px 25px;
+    }
+
+    .social-icons {
+        gap: 20px;
+    }
+
+    .social-icons a {
+        width: 35px;
+        height: 35px;
+    }
+}
 
     </style>
 </head>
