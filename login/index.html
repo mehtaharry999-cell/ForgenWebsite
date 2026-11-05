@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In | FORGEN</title>
+    <title>Sign In | ZXForgen</title>
 
     <style>
         * {
@@ -20,45 +20,83 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .login-box {
-            width: 90%;
-            max-width: 400px;
-            padding: 35px;
+            width: 100%;
+            max-width: 420px;
+            padding: 38px 35px;
             background: #101010;
             border: 1px solid #a20d35;
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #a20d3525;
+        }
+
+        .logo {
             text-align: center;
-            box-shadow: 0 0 25px #a20d3533;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 35px;
         }
 
         h1 {
-            letter-spacing: 5px;
+            text-align: center;
+            font-size: 32px;
+            margin: 0 0 8px;
         }
 
-        p {
+        .subtitle {
+            text-align: center;
             color: #aaa;
+            margin-bottom: 32px;
+        }
+
+        .field-label {
+            display: block;
+            margin: 18px 0 9px;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         input {
             width: 100%;
-            padding: 14px;
-            margin-top: 15px;
+            padding: 15px;
             background: #080808;
             color: white;
             border: 1px solid #444;
-            border-radius: 5px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #a20d35;
+        }
+
+        input::placeholder {
+            color: #777;
+        }
+
+        .forgot {
+            display: block;
+            text-align: right;
+            margin-top: 12px;
+            color: #e34b70;
+            font-size: 13px;
+            text-decoration: none;
         }
 
         button {
             width: 100%;
-            padding: 14px;
-            margin-top: 20px;
+            padding: 15px;
+            margin-top: 22px;
+            border: none;
+            border-radius: 6px;
             background: #a20d35;
             color: white;
-            border: none;
-            border-radius: 5px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -67,14 +105,75 @@
             background: #d41448;
         }
 
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin: 28px 0 20px;
+            color: #999;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            background: #333;
+            flex: 1;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            background: #181818;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .social-button:hover {
+            background: #222;
+            border-color: #a20d35;
+        }
+
+        .social-button img {
+            width: 19px;
+            height: 19px;
+            object-fit: contain;
+        }
+
+        .signup-text {
+            margin-top: 28px;
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+        }
+
         a {
             color: #ff456e;
             text-decoration: none;
         }
 
         #message {
+            text-align: center;
             font-size: 13px;
             margin-top: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 30px 22px;
+            }
         }
     </style>
 </head>
@@ -82,22 +181,65 @@
 <body>
 
 <div class="login-box">
-    <h1>FORGEN</h1>
-    <p>Welcome back</p>
+
+    <div class="logo">ZXFORGEN</div>
+
+    <h1>Welcome</h1>
+    <p class="subtitle">Forgen Club</p>
 
     <form id="loginForm">
-        <input type="email" id="email" placeholder="Email address" required>
 
-        <input type="password" id="password" placeholder="Password" required>
+        <label class="field-label" for="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your Gmail address"
+            required
+        >
 
-        <button type="submit" id="loginButton">LOG IN</button>
+        <label class="field-label" for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+        >
+
+        <a class="forgot" href="/forgot-password/">
+            Forgot password?
+        </a>
+
+        <button type="submit" id="loginButton">
+            Sign In
+        </button>
+
     </form>
 
     <p id="message"></p>
 
-    <p>Don't have an account? <a href="/signup/">Sign Up</a></p>
+    <div class="divider">OR CONTINUE WITH</div>
 
-    <a href="/">Back to Home</a>
+    <a class="social-button" href="#" id="googleLogin">
+        <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+        >
+        Continue with Google
+    </a>
+
+    <a class="social-button" href="#" id="discordLogin">
+        <img
+            src="https://cdn.jsdelivr.net/gh/gauravghongde/social-icons@master/SVG/Color/Discord.svg"
+            alt="Discord"
+        >
+        Continue with Discord
+    </a>
+
+    <p class="signup-text">
+        Don't have an account?
+        <a href="/signup/">Sign Up</a>
+    </p>
+
 </div>
 
 <script>
@@ -109,7 +251,7 @@ form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     button.disabled = true;
-    button.textContent = "LOGGING IN...";
+    button.textContent = "SIGNING IN...";
     message.textContent = "";
 
     try {
@@ -130,11 +272,17 @@ form.addEventListener("submit", async function(event) {
         const data = await response.json();
 
         if (data.success) {
-            localStorage.setItem("zxforgen_user", JSON.stringify(data.user));
+            localStorage.setItem(
+                "zxforgen_user",
+                JSON.stringify(data.user)
+            );
+
             message.textContent = "Login successful! Redirecting...";
-            setTimeout(() => {
+
+            setTimeout(function() {
                 window.location.href = "/";
             }, 1500);
+
         } else {
             message.textContent = data.error || "Login failed.";
         }
@@ -144,7 +292,18 @@ form.addEventListener("submit", async function(event) {
     }
 
     button.disabled = false;
-    button.textContent = "LOG IN";
+    button.textContent = "Sign In";
+});
+
+// Social login will be connected after OAuth setup.
+document.getElementById("googleLogin").addEventListener("click", function(event) {
+    event.preventDefault();
+    message.textContent = "Google login setup is coming next.";
+});
+
+document.getElementById("discordLogin").addEventListener("click", function(event) {
+    event.preventDefault();
+    message.textContent = "Discord login setup is coming next.";
 });
 </script>
 
