@@ -109,6 +109,26 @@
     color: #ff4055;
     text-shadow: 0 0 10px rgba(255, 32, 55, 0.8);
 }
+#guestLinks {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-menu-link {
+    display: block;
+    color: #ddd !important;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 8px;
+    border-radius: 5px;
+}
+
+.profile-menu-link:hover {
+    color: #ff4055 !important;
+    background: rgba(255,64,85,.08);
+}
 
         /* HERO */
         .hero {
@@ -783,11 +803,47 @@
         <a href="/about/">ABOUT</a>
     </div>
 
-    <div class="auth-links">
+   <div class="auth-links" id="authLinks">
+
+    <div id="guestLinks">
         <a href="/signup/">SIGN UP</a>
         <span>|</span>
         <a href="/login/">LOG IN</a>
     </div>
+
+    <div id="userProfile" style="display:none; position:relative;">
+
+        <button id="profileButton" type="button"
+            style="margin:0; padding:7px 12px; background:transparent;
+            color:white; border:1px solid #444; border-radius:6px;
+            cursor:pointer;">
+
+            <span id="profileUsername">PROFILE</span>
+            <span>⌄</span>
+
+        </button>
+
+        <div id="profileDropdown"
+            style="display:none; position:absolute; top:42px; right:0;
+            width:210px; background:#111; border:1px solid #333;
+            border-radius:8px; padding:12px; text-align:left;
+            z-index:9999;">
+
+            <div id="profileEmail"
+                style="font-size:11px; color:#999; margin-bottom:12px;">
+            </div>
+
+            <a href="/profile/" class="profile-menu-link">EDIT PROFILE</a>
+            <a href="/profile/" class="profile-menu-link">ACCOUNT SETTINGS</a>
+            <a href="#" id="logoutButton" class="profile-menu-link">
+                LOG OUT
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 </nav>
 
     <!-- HOME -->
@@ -1146,6 +1202,47 @@
         );
 
     </script>
+<script>
+(function () {
+    const guestLinks = document.getElementById("guestLinks");
+    const userProfile = document.getElementById("userProfile");
+    const profileButton = document.getElementById("profileButton");
+    const profileDropdown = document.getElementById("profileDropdown");
+    const logoutButton = document.getElementById("logoutButton");
+    const profileUsername = document.getElementById("profileUsername");
+    const profileEmail = document.getElementById("profileEmail");
 
+    let user = null;
+
+    try {
+        user = JSON.parse(localStorage.getItem("zxforgen_user") || "null");
+    } catch (error) {}
+
+    if (user && user.email) {
+        guestLinks.style.display = "none";
+        userProfile.style.display = "block";
+
+        profileUsername.textContent = user.username || "PROFILE";
+        profileEmail.textContent = user.email;
+    }
+
+    profileButton.addEventListener("click", function () {
+        profileDropdown.style.display =
+            profileDropdown.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!userProfile.contains(event.target)) {
+            profileDropdown.style.display = "none";
+        }
+    });
+
+    logoutButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        localStorage.removeItem("zxforgen_user");
+        window.location.href = "/";
+    });
+})();
+</script>
 </body>
 </html>
