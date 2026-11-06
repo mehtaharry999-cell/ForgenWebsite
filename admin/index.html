@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZXForgen Admin Panel</title>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #080808;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 35px;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        h1 { color: #ff3030; }
+
+        .panel {
+            background: #151515;
+            border: 1px solid #292929;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        button {
+            background: #e52b2b;
+            color: white;
+            border: 0;
+            padding: 12px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        input {
+            background: #222;
+            color: white;
+            border: 1px solid #444;
+            padding: 12px;
+            border-radius: 7px;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 13px;
+            border-bottom: 1px solid #333;
+            text-align: left;
+        }
+
+        th { color: #ff5555; }
+
+        .hidden { display: none; }
+        #message { color: #ff7777; margin-top: 15px; }
+
+        .table-wrap { overflow-x: auto; }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>ZXFORGEN ADMIN</h1>
+    <p>Private Administration Dashboard</p>
+
+    <div class="panel" id="loginBox">
+        <h2>Admin Login</h2>
+        <p>Sign in with your authorized Google account.</p>
+        <div id="googleButton"></div>
+        <p id="message"></p>
+    </div>
+
+    <div class="panel hidden" id="dashboard">
+        <h2>Registered Users</h2>
+        <p id="totalUsers">Total Users: 0</p>
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search username or email..."
+            oninput="filterUsers()"
+        >
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody id="userList"></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const CLIENT_ID =
+"111039498830-ham4hjlk8nflglthg3javqfvcrtr7q1h.apps.googleusercontent.com";
+
+const API_URL =
+"https://zxforgen-auth.zxforgengamer.workers.dev/api/admin/users";
+
+let users = [];
+
+function showGoogleButton() {
+    if (!window.google || !google.accounts) {
+        setTimeout(showGoogleButton, 300);
+        return;
+    }
+
+    google.accounts.id.initialize({
+        client_id: CLIENT_ID,
+        callback: handleGoogleLogin
+    });
+
+    google.accounts.id.renderButton(
+        document.getElementById("googleButton"),
+        {
+            theme: "filled_black",
+            size: "large",
+            text: "signin_with"
+        }
+    );
+}
+
+async function handleGoogleLogin(result) {
+    const message = document.getElementById("message");
+    message.textContent = "Verifying admin account...";
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + result.credential
+            },
+            body: JSON.stringify({})
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.error || "Access denied.");
+        }
+
+        users = data.users || [];
+
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+
+        filterUsers();
+
+    } catch (error) {
+        message.textContent = error.message;
+    }
+}
+
+function filterUsers() {
+    const search = document.getElementById("search").value.toLowerCase();
+
+    const filtered = users.filter(user =>
+        (user.username || "").toLowerCase().includes(search) ||
+        (user.email || "").toLowerCase().includes(search)
+    );
+
+    document.getElementById("totalUsers").textContent =
+        "Total Users: " + users.length;
+
+    const list = document.getElementById("userList");
+    list.replaceChildren();
+
+    filtered.forEach(user => {
+        const row = document.createElement("tr");
+
+        [user.username, user.email, user.created_at].forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value || "-";
+            row.appendChild(cell);
+        });
+
+        list.appendChild(row);
+    });
+}
+
+showGoogleButton();
+</script>
+
+</body>
+</html>
